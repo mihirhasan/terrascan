@@ -43,11 +43,15 @@ import (
 
 const (
 	// ExitCodeZero represents command exit code 0
-	ExitCodeZero = 0
-	// ExitCodeOne represents command exit code 0
-	ExitCodeOne = 1
-	// ExitCodeThree represents command exit code 0
-	ExitCodeThree = 3
+	ExitCodeZero = iota
+	// ExitCodeOne represents command exit code 1
+	ExitCodeOne
+	// ExitCodeThree represents command exit code 3
+	ExitCodeThree = iota + 1
+	// ExitCodeFour represents command exit code 4
+	ExitCodeFour
+	// ExitCodeFive represents command exit code 5
+	ExitCodeFive
 )
 
 var (
@@ -64,7 +68,7 @@ var (
 	filePattern = regexp.MustCompile(`["]*[fF]ile["]*[ \t]*[:=][ \t]*["]*(.+)[\\\/](.+)["]*`)
 
 	// sarifVersionPattern is regex for 'version' attribute in sarif violations output
-	sarifVersionPattern = regexp.MustCompile(`["]*[vV]ersion["][:=][ \t]*["][0-9][\.][0-9][\.][0-9]["],`)
+	sarifVersionPattern = regexp.MustCompile(`["]*[vV]ersion["][:=][ \t]*["]([0-9])+[\.]([0-9])+[\.]([0-9])+["],`)
 
 	// sarifUriPattern is regex for 'uri' attribute in sarif violations output
 	sarifURIPattern = regexp.MustCompile(`["]*[uU]ri["][:=][ \t]*["]*(.+)[\\\/](.+)["]*`)
@@ -82,7 +86,7 @@ var (
 	classnamePattern = regexp.MustCompile(`classname=["]*(.+)[\\\/](.+)["]*`)
 
 	// versionValuePattern is regex for 'value' attribute in junit-xml output (which is terrascan version)
-	versionValuePattern = regexp.MustCompile(`value="v[1][\.][0-9][\.][0-9]"`)
+	versionValuePattern = regexp.MustCompile(`value="v[0-9][\.]([0-9])+[\.]([0-9])+"`)
 
 	// sourceRegexPattern is regex for 'file/folder' attribute in violations output
 	sourceRegexPattern = regexp.MustCompile(`["]*source["]*[ \t]*[:][ \t]*["]*(.+)[\\\/](.+)["]*`)
